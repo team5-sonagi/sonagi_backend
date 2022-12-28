@@ -4,7 +4,6 @@ import com.example.sonagi.fixedAnswer.domain.FixedAnswer;
 import com.example.sonagi.fixedAnswer.domain.FixedAnswerRepository;
 import com.example.sonagi.fixedAnswer.dto.FixedAnswerByYearDto;
 import com.example.sonagi.fixedAnswer.dto.FixedAnswerDto;
-import com.example.sonagi.fixedAnswer.dto.FixedAnswerRequest;
 import com.example.sonagi.fixedQuestionComment.domain.FixedQuestionComment;
 import com.example.sonagi.fixedQuestionComment.domain.FixedQuestionCommentRepository;
 import com.example.sonagi.fixedQuestionComment.dto.FixedQuestionCommentDto;

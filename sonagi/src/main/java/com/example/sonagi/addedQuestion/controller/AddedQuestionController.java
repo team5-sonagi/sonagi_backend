@@ -1,8 +1,8 @@
 package com.example.sonagi.addedQuestion.controller;
 
-import com.example.sonagi.addedQuestion.domain.AddedQuestion;
 import com.example.sonagi.addedQuestion.dto.AddedQuestionRequest;
 import com.example.sonagi.addedQuestion.dto.AddedQuestionResponse;
+import com.example.sonagi.addedQuestion.dto.AddedQuestionAndAnswersDto;
 import com.example.sonagi.addedQuestion.service.AddedQuestionService;
 import com.example.sonagi.user.domain.User;
 import com.example.sonagi.user.service.UserService;
@@ -30,5 +30,12 @@ public class AddedQuestionController {
         User user = userService.findUserByToken(token);
         return addedQuestionService.findAllByFamilyId(user.getFamily().getId());
     }
+
+    @GetMapping("/added-question/{id}/answers")
+    public AddedQuestionAndAnswersDto searchAddedAnswers(@PathVariable Long id, @RequestHeader("X-AUTH-TOKEN") String token) {
+        User user = userService.findUserByToken(token);
+        return addedQuestionService.findQuestionAndAnswersById(id);
+    }
+
 
 }

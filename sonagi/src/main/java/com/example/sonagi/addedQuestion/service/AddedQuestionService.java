@@ -2,6 +2,8 @@ package com.example.sonagi.addedQuestion.service;
 
 import com.example.sonagi.addedQuestion.domain.AddedQuestion;
 import com.example.sonagi.addedQuestion.domain.AddedQuestionRepository;
+import com.example.sonagi.addedQuestion.dto.AddedAnswerDto;
+import com.example.sonagi.addedQuestion.dto.AddedQuestionAndAnswersDto;
 import com.example.sonagi.addedQuestion.dto.AddedQuestionRequest;
 import com.example.sonagi.addedQuestion.dto.AddedQuestionResponse;
 import com.example.sonagi.user.domain.User;
@@ -26,5 +28,16 @@ public class AddedQuestionService {
 
     public List<AddedQuestionResponse> findAllByFamilyId(Long familyId) {
         return AddedQuestionResponse.from(addedQuestionRepository.findAllByFamilyId(familyId));
+    }
+
+    public AddedQuestionAndAnswersDto findQuestionAndAnswersById(Long questionId) {
+        AddedQuestion question = addedQuestionRepository.findById(questionId)
+            .orElseThrow(() -> new RuntimeException(""));
+        List<AddedAnswerDto> addedAnswerDtos = AddedAnswerDto.from(question.getAnswers());
+        return AddedQuestionAndAnswersDto.builder()
+            .id(questionId)
+            .question(question.getContent())
+            .answers(addedAnswerDtos)
+            .build();
     }
 }

@@ -1,7 +1,6 @@
 package com.example.sonagi.fixed_question.controller;
 
 import com.example.sonagi.family.service.FamilyService;
-import com.example.sonagi.fixedQuestionComment.dto.FixedQuestionCommentDto;
 import com.example.sonagi.fixed_question.dto.FixedQuestionAndAnswersDto;
 import com.example.sonagi.fixed_question.dto.FixedQuestionAndCommentsDto;
 import com.example.sonagi.fixed_question.dto.FixedQuestionDto;
@@ -51,7 +50,7 @@ public class FixedQuestionController {
         return fixedQuestionService.findQuestionAndCommentsById(questionId, user.getFamily().getId());
     }
 
-    @GetMapping(value = "/fixedQuestion/answers/{id}")
+    @GetMapping(value = "/fixed-question/{id}/answers")
     public FixedQuestionAndAnswersDto fixedAnswers(@PathVariable Long id, @RequestHeader("X-AUTH-TOKEN") String token){
         User user = userService.findUserByToken(token);
         return fixedQuestionService.findQuestionAndAnswersById(id, user.getFamily().getId());
