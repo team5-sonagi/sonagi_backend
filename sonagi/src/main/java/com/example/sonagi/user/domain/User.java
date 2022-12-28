@@ -1,13 +1,16 @@
 package com.example.sonagi.user.domain;
 
+import com.example.sonagi.addedQuestion.domain.AddedQuestion;
 import com.example.sonagi.family.domain.Family;
 import com.example.sonagi.user.dto.UserCreation.Request;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,6 +40,9 @@ public class User {
 	@JoinColumn(name="family_id", referencedColumnName = "id")
 	private Family family;
 
+	@OneToMany(mappedBy = "writer")
+	private List<AddedQuestion> addedQuestions;
+
 	public static User createUser(Request request, PasswordEncoder passwordEncoder) {
 		return User.builder()
 			.username(request.getUsername())
@@ -50,5 +56,9 @@ public class User {
 
 	public void setFamily(Family family) {
 		this.family = family;
+	}
+
+	public void addAddedQuestionItem(AddedQuestion addedQuestion) {
+		addedQuestions.add(addedQuestion);
 	}
 }
