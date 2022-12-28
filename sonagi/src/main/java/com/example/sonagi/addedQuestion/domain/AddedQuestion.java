@@ -1,7 +1,9 @@
 package com.example.sonagi.addedQuestion.domain;
 
+import com.example.sonagi.addedAnswer.domain.AddedAnswer;
 import com.example.sonagi.addedQuestion.dto.AddedQuestionRequest;
 import com.example.sonagi.user.domain.User;
+import java.util.List;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +24,9 @@ public class AddedQuestion {
     @JoinColumn(name="user_id", referencedColumnName = "id")
     private User writer;
 
+    @OneToMany(mappedBy = "question")
+    private List<AddedAnswer> answers;
+
     @Column(nullable = false)
     private String content;
 
@@ -38,5 +43,9 @@ public class AddedQuestion {
             .build();
         user.addAddedQuestion(question);
         return question;
+    }
+
+    public void addAnswer(AddedAnswer addedAnswer) {
+        answers.add(addedAnswer);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.sonagi.user.domain;
 
+import com.example.sonagi.addedAnswer.domain.AddedAnswer;
 import com.example.sonagi.addedQuestion.domain.AddedQuestion;
 import com.example.sonagi.family.domain.Family;
 import com.example.sonagi.fixedQuestionComment.domain.FixedQuestionComment;
@@ -31,16 +32,18 @@ public class User {
 	private String bod;
 	private String mbti;
 	private String hashtag;
-
-	@OneToMany(mappedBy = "writer")
-	private List<FixedQuestionComment> fixedComments;
-
 	@ManyToOne
 	@JoinColumn(name="family_id", referencedColumnName = "id")
 	private Family family;
 
 	@OneToMany(mappedBy = "writer")
+	private List<FixedQuestionComment> fixedComments;
+
+	@OneToMany(mappedBy = "writer")
 	private List<AddedQuestion> addedQuestions;
+
+	@OneToMany(mappedBy = "writer")
+	private List<AddedAnswer> addedAnswers;
 
 	public static User createUser(UserCreation.Request request, PasswordEncoder passwordEncoder) {
 		return User.builder()
@@ -63,5 +66,9 @@ public class User {
 
 	public void addFixedComment(FixedQuestionComment fixedQuestionComment) {
 		fixedComments.add(fixedQuestionComment);
+	}
+
+	public void addAddedAnswer(AddedAnswer answer) {
+		addedAnswers.add(answer);
 	}
 }
