@@ -26,6 +26,9 @@ public class FixedQuestion {
     private Long dailyNum;
 
     @OneToMany(mappedBy = "fixedQuestion")
-    private List<FixedQuestionComment> comments;
+    private List<FixedQuestionComment> fixedComments;
+    public void addFixedComments(FixedQuestionComment fixedQuestionComment){
+        fixedComments.add(fixedQuestionComment);
+    }
 
 }
