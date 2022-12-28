@@ -2,6 +2,7 @@ package com.example.sonagi.user.domain;
 
 import com.example.sonagi.addedAnswer.domain.AddedAnswer;
 import com.example.sonagi.addedQuestion.domain.AddedQuestion;
+import com.example.sonagi.addedQuestionComment.domain.AddedQuestionComment;
 import com.example.sonagi.family.domain.Family;
 import com.example.sonagi.fixedQuestionComment.domain.FixedQuestionComment;
 import com.example.sonagi.user.dto.UserCreation;
@@ -43,6 +44,9 @@ public class User {
 	private List<AddedQuestion> addedQuestions;
 
 	@OneToMany(mappedBy = "writer")
+	private List<AddedQuestionComment> addedQuestionComments;
+
+	@OneToMany(mappedBy = "writer")
 	private List<AddedAnswer> addedAnswers;
 
 	public static User createUser(UserCreation.Request request, PasswordEncoder passwordEncoder) {
@@ -70,5 +74,9 @@ public class User {
 
 	public void addAddedAnswer(AddedAnswer answer) {
 		addedAnswers.add(answer);
+	}
+
+	public void addAddedComment(AddedQuestionComment comment) {
+		addedQuestionComments.add(comment);
 	}
 }

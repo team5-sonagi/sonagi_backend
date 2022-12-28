@@ -2,6 +2,7 @@ package com.example.sonagi.addedQuestion.domain;
 
 import com.example.sonagi.addedAnswer.domain.AddedAnswer;
 import com.example.sonagi.addedQuestion.dto.AddedQuestionRequest;
+import com.example.sonagi.addedQuestionComment.domain.AddedQuestionComment;
 import com.example.sonagi.user.domain.User;
 import java.util.List;
 import lombok.*;
@@ -27,6 +28,9 @@ public class AddedQuestion {
     @OneToMany(mappedBy = "question")
     private List<AddedAnswer> answers;
 
+    @OneToMany(mappedBy = "question")
+    private List<AddedQuestionComment> comments;
+
     @Column(nullable = false)
     private String content;
 
@@ -45,7 +49,11 @@ public class AddedQuestion {
         return question;
     }
 
-    public void addAnswer(AddedAnswer addedAnswer) {
-        answers.add(addedAnswer);
+    public void addAnswer(AddedAnswer answer) {
+        answers.add(answer);
+    }
+
+    public void addComment(AddedQuestionComment comment) {
+        comments.add(comment);
     }
 }
