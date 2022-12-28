@@ -3,15 +3,21 @@ package com.example.sonagi.family.service;
 import com.example.sonagi.exception.BusinessException;
 import com.example.sonagi.family.domain.Family;
 import com.example.sonagi.family.domain.FamilyRepository;
+import com.example.sonagi.family.dto.FamilyDto;
 import com.example.sonagi.user.domain.User;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class FamilyService {
-	private final FamilyRepository familyRepository;
+
+    private final FamilyRepository familyRepository;
 
 	@Transactional
 	public String createFamily(User user) {
@@ -27,4 +33,20 @@ public class FamilyService {
 		family.addMember(user);
 		familyRepository.save(family);
 	}
+
+    public FamilyDto findById(Long id){
+        Optional<Family> optionalFamily = familyRepository.findById(id);
+        if(optionalFamily.isEmpty()){
+            throw new RuntimeException();
+        }else {
+            Family fam = optionalFamily.get();
+            return new FamilyDto(fam.getId(), fam.getCode(), fam.getCreatedAt());
+        }
+    }
+    public int getDDay(Family family){
+        LocalDate start = family.getCreatedAt();
+        LocalDate end = LocalDate.now();
+        int dDay = (int) Duration.between(end.atStartOfDay(), start.atStartOfDay()).toDays();
+        return Math.abs(dDay) % 365;
+    }
 }

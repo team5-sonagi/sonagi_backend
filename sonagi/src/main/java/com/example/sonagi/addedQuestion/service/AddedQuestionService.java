@@ -2,8 +2,13 @@ package com.example.sonagi.addedQuestion.service;
 
 import com.example.sonagi.addedQuestion.domain.AddedQuestion;
 import com.example.sonagi.addedQuestion.domain.AddedQuestionRepository;
-import com.example.sonagi.addedQuestion.dto.AddedQuestionDto;
+import com.example.sonagi.addedQuestion.dto.AddedAnswerDto;
+import com.example.sonagi.addedQuestion.dto.AddedQuestionAndAnswersDto;
+import com.example.sonagi.addedQuestion.dto.AddedQuestionRequest;
+import com.example.sonagi.addedQuestion.dto.AddedQuestionResponse;
 import com.example.sonagi.user.domain.User;
+import com.example.sonagi.user.domain.UserRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,17 +17,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AddedQuestionService {
     private final AddedQuestionRepository addedQuestionRepository;
+    private final UserRepository userRepository;
 
     @Transactional
-    public Long save(AddedQuestionDto addedQuestionDto, User user) {
-        AddedQuestion addedQuestion = AddedQuestion.from(addedQuestionDto, user);
+    public Long save(AddedQuestionRequest addedQuestionRequest, User user) {
+        AddedQuestion addedQuestion = AddedQuestion.from(addedQuestionRequest, user);
+        userRepository.save(user);
         return addedQuestionRepository.save(addedQuestion).getId();
     }
 
-    @Transactional
-    public AddedQuestion findByFamilyId(Long familyId) {
-        AddedQuestion addedQuestion = addedQuestionRepository.findByFamilyId(familyId).orElseThrow(() -> new IllegalArgumentException("해당 질문이 없습니다."));
-        return addedQuestion;
+    public List<AddedQuestionResponse> findAllByFamilyId(Long familyId) {
+        return AddedQuestionResponse.from(addedQuestionRepository.findAllByFamilyId(familyId));
     }
 
+    public AddedQuestionAndAnswersDto findQuestionAndAnswersById(Long questionId) {
+        AddedQuestion question = addedQuestionRepository.findById(questionId)
+            .orElseThrow(() -> new RuntimeException(""));
+        List<AddedAnswerDto> addedAnswerDtos = AddedAnswerDto.from(question.getAnswers());
+        return AddedQuestionAndAnswersDto.builder()
+            .id(questionId)
+            .question(question.getContent())
+            .answers(addedAnswerDtos)
+            .build();
+    }
 }

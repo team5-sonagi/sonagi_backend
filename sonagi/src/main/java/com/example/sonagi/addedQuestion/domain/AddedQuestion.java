@@ -1,7 +1,10 @@
 package com.example.sonagi.addedQuestion.domain;
 
-import com.example.sonagi.addedQuestion.dto.AddedQuestionDto;
+import com.example.sonagi.addedAnswer.domain.AddedAnswer;
+import com.example.sonagi.addedQuestion.dto.AddedQuestionRequest;
+import com.example.sonagi.addedQuestionComment.domain.AddedQuestionComment;
 import com.example.sonagi.user.domain.User;
+import java.util.List;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +22,14 @@ public class AddedQuestion {
     private Long id;
 
     @ManyToOne
-    private User user;
+    @JoinColumn(name="user_id", referencedColumnName = "id")
+    private User writer;
+
+    @OneToMany(mappedBy = "question")
+    private List<AddedAnswer> answers;
+
+    @OneToMany(mappedBy = "question")
+    private List<AddedQuestionComment> comments;
 
     @Column(nullable = false)
     private String content;
@@ -28,12 +38,22 @@ public class AddedQuestion {
 
     private LocalDateTime createdAt;
 
-    public static AddedQuestion from(AddedQuestionDto addedQuestionDto, User user) {
-        // TODO: 유저 정보를 기반으로 가족 정보를 알아야 함
-        return AddedQuestion.builder()
-//                .user(user)
-                .content(addedQuestionDto.getContent())
-                .createdAt(LocalDateTime.now())
-                .build();
+    public static AddedQuestion from(AddedQuestionRequest addedQuestionRequest, User user) {
+        AddedQuestion question = AddedQuestion.builder()
+            .writer(user)
+            .familyId(user.getFamily().getId())
+            .content(addedQuestionRequest.getContent())
+            .createdAt(LocalDateTime.now())
+            .build();
+        user.addAddedQuestion(question);
+        return question;
+    }
+
+    public void addAnswer(AddedAnswer answer) {
+        answers.add(answer);
+    }
+
+    public void addComment(AddedQuestionComment comment) {
+        comments.add(comment);
     }
 }
