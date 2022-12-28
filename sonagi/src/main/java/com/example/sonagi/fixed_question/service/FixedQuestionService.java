@@ -44,7 +44,7 @@ public class FixedQuestionService {
             throw new RuntimeException();
         } else {
             FixedQuestion fixedQuestion = optionalFixedQuestion.get();
-            return new FixedQuestionAndCommentsDto(fixedQuestion.getId(), fixedQuestion.getContent(), fixedQuestion.getDailyNum(), FixedQuestionCommentDto.from(fixedQuestion.getComments()));
+            return new FixedQuestionAndCommentsDto(fixedQuestion.getId(), fixedQuestion.getContent(), fixedQuestion.getDailyNum(), FixedQuestionCommentDto.from(fixedQuestion.getFixedComments()));
         }
     }
 }

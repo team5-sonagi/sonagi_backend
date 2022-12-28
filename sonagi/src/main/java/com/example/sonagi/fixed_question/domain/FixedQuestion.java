@@ -1,5 +1,6 @@
 package com.example.sonagi.fixed_question.domain;
 
+import com.example.sonagi.fixedAnswer.domain.FixedAnswer;
 import com.example.sonagi.fixedQuestionComment.domain.FixedQuestionComment;
 import com.example.sonagi.fixedQuestionComment.dto.FixedQuestionCommentDto;
 import lombok.Builder;
@@ -27,6 +28,9 @@ public class FixedQuestion {
 
     @OneToMany(mappedBy = "fixedQuestion")
     private List<FixedQuestionComment> fixedComments;
+    @OneToMany(mappedBy = "fixedQuestion")
+    private List<FixedAnswer> fixedAnswers;
+
     public void addFixedComments(FixedQuestionComment fixedQuestionComment){
         fixedComments.add(fixedQuestionComment);
     }
