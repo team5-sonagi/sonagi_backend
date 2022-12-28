@@ -2,19 +2,15 @@ package com.example.sonagi.user.domain;
 
 import com.example.sonagi.addedQuestion.domain.AddedQuestion;
 import com.example.sonagi.family.domain.Family;
-import com.example.sonagi.user.dto.UserCreation.Request;
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import com.example.sonagi.fixedQuestionComment.domain.FixedQuestionComment;
+import com.example.sonagi.user.dto.UserCreation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
+import javax.persistence.*;
+import java.util.List;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -36,6 +32,9 @@ public class User {
 	private String mbti;
 	private String hashtag;
 
+	@OneToMany(mappedBy = "writer")
+	private List<FixedQuestionComment> fixedComments;
+
 	@ManyToOne
 	@JoinColumn(name="family_id", referencedColumnName = "id")
 	private Family family;
@@ -43,7 +42,7 @@ public class User {
 	@OneToMany(mappedBy = "writer")
 	private List<AddedQuestion> addedQuestions;
 
-	public static User createUser(Request request, PasswordEncoder passwordEncoder) {
+	public static User createUser(UserCreation.Request request, PasswordEncoder passwordEncoder) {
 		return User.builder()
 			.username(request.getUsername())
 			.password(passwordEncoder.encode(request.getPassword()))
