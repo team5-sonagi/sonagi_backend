@@ -5,8 +5,10 @@ import com.example.sonagi.family.service.FamilyService;
 import com.example.sonagi.jwt.JwtProvider;
 import com.example.sonagi.user.domain.User;
 import com.example.sonagi.user.domain.UserRepository;
+import com.example.sonagi.user.dto.FamilyMember;
 import com.example.sonagi.user.dto.UserCreation;
 import com.example.sonagi.user.dto.UserLogin.Request;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +22,10 @@ public class UserService {
 	private final PasswordEncoder passwordEncoder;
 	public final FamilyService familyService;
 	public final UserRepository userRepository;
+
+	public User findUserByToken(String token) {
+		return userRepository.findByUsername(jwtProvider.getUserPk(token)).orElseThrow(() -> BusinessException.INVALID_TOKEN);
+	}
 
 	@Transactional
 	public UserCreation.Response register(UserCreation.Request request) {
@@ -54,5 +60,10 @@ public class UserService {
 		if (!passwordEncoder.matches(password, user.getPassword())) {
 			throw BusinessException.USER_NOT_FOUND_BY_PASSWORD;
 		}
+	}
+
+	public List<FamilyMember.Response> getFamilyMembersInfo(User user) {
+		List<User> members = user.getFamily().getMembers();
+		return FamilyMember.Response.from(members);
 	}
 }
