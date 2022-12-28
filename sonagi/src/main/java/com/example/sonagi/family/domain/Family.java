@@ -1,9 +1,10 @@
 package com.example.sonagi.family.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.time.LocalDate;
+import java.util.Collection;
+import javax.persistence.*;
+
+import com.example.sonagi.user.domain.User;
 import lombok.Getter;
 
 @Getter
@@ -11,7 +12,13 @@ import lombok.Getter;
 public class Family {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	private Long id;
 
+	@Column
 	private String code;
+
+	@Column
+	private LocalDate createdAt;
+
 }

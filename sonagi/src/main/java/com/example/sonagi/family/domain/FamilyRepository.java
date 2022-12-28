@@ -2,6 +2,8 @@ package com.example.sonagi.family.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FamilyRepository extends JpaRepository<Family, Long> {
+import java.time.LocalDate;
+import java.util.Optional;
 
+public interface FamilyRepository extends JpaRepository<Family, Long> {
 }
