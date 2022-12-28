@@ -31,9 +31,6 @@ public class FixedAnswer {
     @Column
     private LocalDateTime createdAt;
 
-    @Column
-    private LocalDateTime updatedAt;
-
     @ManyToOne
     @JoinColumn(name="fixedQuestionId", referencedColumnName = "id")
     private FixedQuestion fixedQuestion;
@@ -41,6 +38,5 @@ public class FixedAnswer {
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User writer;
-
 
 }

@@ -36,4 +36,7 @@ public class FixedQuestion {
         fixedComments.add(fixedQuestionComment);
     }
 
+    public void addFixedAnswer(FixedAnswer fixedAnswer) {
+        fixedAnswers.add(fixedAnswer);
+    }
 }
