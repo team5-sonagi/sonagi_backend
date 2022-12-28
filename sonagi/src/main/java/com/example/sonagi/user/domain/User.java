@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,10 @@ public class User {
 	private String mbti;
 	private String hashtag;
 
+	@ManyToOne
+	@JoinColumn(name="family_id", referencedColumnName = "id")
+	private Family family;
+
 	public static User createUser(Request request, PasswordEncoder passwordEncoder) {
 		return User.builder()
 			.username(request.getUsername())
@@ -41,5 +46,9 @@ public class User {
 			.mbti(request.getMbti())
 			.hashtag(request.getHashtag() == null ? "" : request.getHashtag().toString())
 			.build();
+	}
+
+	public void setFamily(Family family) {
+		this.family = family;
 	}
 }
