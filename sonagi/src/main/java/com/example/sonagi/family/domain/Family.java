@@ -1,5 +1,6 @@
 package com.example.sonagi.family.domain;
 
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,4 +15,5 @@ public class Family {
 	private Long id;
 
 	private String code;
+	private LocalDate createdAt;
 }
