@@ -36,7 +36,7 @@ public class AddedQuestion {
             .content(addedQuestionRequest.getContent())
             .createdAt(LocalDateTime.now())
             .build();
-        user.addAddedQuestionItem(question);
+        user.addAddedQuestion(question);
         return question;
     }
 }

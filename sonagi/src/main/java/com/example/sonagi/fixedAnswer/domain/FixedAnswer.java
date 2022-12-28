@@ -1,4 +1,4 @@
-package com.example.sonagi.fixedQuestionComment.domain;
+package com.example.sonagi.fixedAnswer.domain;
 
 import com.example.sonagi.fixed_question.domain.FixedQuestion;
 import com.example.sonagi.user.domain.User;
@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -16,8 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="FixedQuestionComment")
-public class FixedQuestionComment {
+@Table(name="FixedAnswer")
+public class FixedAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
@@ -26,11 +25,14 @@ public class FixedQuestionComment {
     @Column
     private Long familyId;
 
-    @Column(length = 1000)
+    @Column
     private String content;
 
     @Column
     private LocalDateTime createdAt;
+
+    @Column
+    private LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name="fixedQuestionId", referencedColumnName = "id")
@@ -39,5 +41,6 @@ public class FixedQuestionComment {
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User writer;
+
 
 }

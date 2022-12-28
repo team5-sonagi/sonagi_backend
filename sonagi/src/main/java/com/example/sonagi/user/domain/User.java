@@ -57,7 +57,11 @@ public class User {
 		this.family = family;
 	}
 
-	public void addAddedQuestionItem(AddedQuestion addedQuestion) {
+	public void addAddedQuestion(AddedQuestion addedQuestion) {
 		addedQuestions.add(addedQuestion);
+	}
+
+	public void addFixedComment(FixedQuestionComment fixedQuestionComment) {
+		fixedComments.add(fixedQuestionComment);
 	}
 }
