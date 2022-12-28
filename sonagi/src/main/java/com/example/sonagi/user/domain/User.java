@@ -1,10 +1,23 @@
 package com.example.sonagi.user.domain;
 
+import com.example.sonagi.family.domain.Family;
+import com.example.sonagi.user.dto.UserCreation.Request;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class User {
 	@Id
@@ -18,4 +31,15 @@ public class User {
 	private String bod;
 	private String mbti;
 	private String hashtag;
+
+	public static User createUser(Request request, PasswordEncoder passwordEncoder) {
+		return User.builder()
+			.username(request.getUsername())
+			.password(passwordEncoder.encode(request.getPassword()))
+			.name(request.getName())
+			.bod(request.getBod())
+			.mbti(request.getMbti())
+			.hashtag(request.getHashtag() == null ? "" : request.getHashtag().toString())
+			.build();
+	}
 }
