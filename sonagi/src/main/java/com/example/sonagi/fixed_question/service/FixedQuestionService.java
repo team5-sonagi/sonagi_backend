@@ -1,5 +1,7 @@
 package com.example.sonagi.fixed_question.service;
 
+import com.example.sonagi.fixedQuestionComment.domain.FixedQuestionComment;
+import com.example.sonagi.fixedQuestionComment.domain.FixedQuestionCommentRepository;
 import com.example.sonagi.fixedQuestionComment.dto.FixedQuestionCommentDto;
 import com.example.sonagi.fixed_question.domain.FixedQuestion;
 import com.example.sonagi.fixed_question.dto.FixedQuestionAndCommentsDto;
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class FixedQuestionService {
 
     private final FixedQuestionRepository fixedQuestionRepository;
+    private final FixedQuestionCommentRepository fixedQuestionCommentRepository;
 
     public FixedQuestionDto findByDailyNum(Long dailyNum) {
 
@@ -38,13 +41,15 @@ public class FixedQuestionService {
         return lst;
     }
 
-    public FixedQuestionAndCommentsDto findQuestionAndCommentsById(Long id) {
-        Optional<FixedQuestion> optionalFixedQuestion = fixedQuestionRepository.findById(id);
+    public FixedQuestionAndCommentsDto findQuestionAndCommentsById(Long questionId, Long familyId) {
+        Optional<FixedQuestion> optionalFixedQuestion = fixedQuestionRepository.findById(questionId);
         if (optionalFixedQuestion.isEmpty()) {
             throw new RuntimeException();
         } else {
             FixedQuestion fixedQuestion = optionalFixedQuestion.get();
-            return new FixedQuestionAndCommentsDto(fixedQuestion.getId(), fixedQuestion.getContent(), fixedQuestion.getDailyNum(), FixedQuestionCommentDto.from(fixedQuestion.getComments()));
+            List<FixedQuestionComment> allByFixedQuestionAndFamilyId = fixedQuestionCommentRepository.findAllByFixedQuestionAndFamilyId(
+                fixedQuestion, familyId);
+            return new FixedQuestionAndCommentsDto(fixedQuestion.getId(), fixedQuestion.getContent(), fixedQuestion.getDailyNum(), FixedQuestionCommentDto.from(allByFixedQuestionAndFamilyId));
         }
     }
 }

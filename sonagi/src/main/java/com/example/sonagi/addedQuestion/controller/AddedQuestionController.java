@@ -18,16 +18,17 @@ public class AddedQuestionController {
     private final UserService userService;
 
     // 추가 질문 등록
-    @PostMapping("/addedquestion")
+    @PostMapping("/added-question")
     public Long save(@RequestBody AddedQuestionRequest addedQuestionRequest, @RequestHeader("X-AUTH-TOKEN") String token) {
         User user = userService.findUserByToken(token);
         return addedQuestionService.save(addedQuestionRequest, user);
     }
 
     // 추가 질문 조희
-    @GetMapping("/addedquestion/{familyId}")
-    public List<AddedQuestionResponse> view(@PathVariable Long familyId) {
-        return addedQuestionService.findAllByFamilyId(familyId);
+    @GetMapping("/added-question")
+    public List<AddedQuestionResponse> view(@RequestHeader("X-AUTH-TOKEN") String token) {
+        User user = userService.findUserByToken(token);
+        return addedQuestionService.findAllByFamilyId(user.getFamily().getId());
     }
 
 }

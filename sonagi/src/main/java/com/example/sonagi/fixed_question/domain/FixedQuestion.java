@@ -27,5 +27,4 @@ public class FixedQuestion {
 
     @OneToMany(mappedBy = "fixedQuestion")
     private List<FixedQuestionComment> comments;
-
 }

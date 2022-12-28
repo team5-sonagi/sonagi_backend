@@ -1,6 +1,5 @@
 package com.example.sonagi.fixedQuestionComment.controller;
 
-import com.example.sonagi.fixedQuestionComment.domain.FixedQuestionComment;
 import com.example.sonagi.fixedQuestionComment.dto.FixedQuestionCommentDto;
 import com.example.sonagi.fixedQuestionComment.service.FixedQuestionCommentService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FixedQuestionCommentController {
     private final FixedQuestionCommentService fixedQuestionCommentService;
 
-    @GetMapping(value="/fixedQuestionComment")
+    @GetMapping(value="/fixed-question-comment")
     public FixedQuestionCommentDto fixedComment(@RequestParam Long id){
         FixedQuestionCommentDto comment = fixedQuestionCommentService.findById(id);
         return comment;

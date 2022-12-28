@@ -1,13 +1,14 @@
 package com.example.sonagi.fixed_question.dto;
 
-import com.example.sonagi.fixedQuestionComment.domain.FixedQuestionComment;
 import com.example.sonagi.fixedQuestionComment.dto.FixedQuestionCommentDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

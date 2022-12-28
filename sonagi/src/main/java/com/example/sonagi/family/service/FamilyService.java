@@ -43,8 +43,8 @@ public class FamilyService {
             return new FamilyDto(fam.getId(), fam.getCode(), fam.getCreatedAt());
         }
     }
-    public int getDDay(Long id){
-        LocalDate start = this.findById(id).getCreatedAt();
+    public int getDDay(Family family){
+        LocalDate start = family.getCreatedAt();
         LocalDate end = LocalDate.now();
         int dDay = (int) Duration.between(end.atStartOfDay(), start.atStartOfDay()).toDays();
         return Math.abs(dDay) % 365;
