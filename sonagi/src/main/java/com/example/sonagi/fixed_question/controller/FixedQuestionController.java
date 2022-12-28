@@ -2,6 +2,7 @@ package com.example.sonagi.fixed_question.controller;
 
 import com.example.sonagi.family.service.FamilyService;
 import com.example.sonagi.fixedQuestionComment.dto.FixedQuestionCommentDto;
+import com.example.sonagi.fixed_question.dto.FixedQuestionAndAnswersDto;
 import com.example.sonagi.fixed_question.dto.FixedQuestionAndCommentsDto;
 import com.example.sonagi.fixed_question.dto.FixedQuestionDto;
 import com.example.sonagi.fixed_question.dto.QuestionListItemDto;
@@ -42,5 +43,10 @@ public class FixedQuestionController {
     @GetMapping(value = "/fixedQuestion/comments/{id}")
     public FixedQuestionAndCommentsDto fixedComments(@PathVariable Long id){
         return fixedQuestionService.findQuestionAndCommentsById(id);
+    }
+
+    @GetMapping(value = "/fixedQuestion/answers/{id}")
+    public FixedQuestionAndAnswersDto fixedAnswers(@PathVariable Long id){
+        return fixedQuestionService.findQuestionAndAnswersById(id);
     }
 }

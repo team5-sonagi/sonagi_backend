@@ -6,12 +6,9 @@ import com.example.sonagi.fixedQuestionComment.dto.FixedCommentCreationRequest;
 import com.example.sonagi.fixedQuestionComment.dto.FixedQuestionCommentDto;
 import com.example.sonagi.fixed_question.domain.FixedQuestion;
 import com.example.sonagi.fixed_question.domain.FixedQuestionRepository;
-import com.example.sonagi.fixed_question.dto.FixedQuestionDto;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -39,7 +36,7 @@ public class FixedQuestionCommentService {
             FixedQuestion fixedQuestion = optionalFixedQuestion.get();
             FixedQuestionComment fixedQuestionComment = FixedQuestionComment.builder()
                     .fixedQuestion(fixedQuestion)
-                    .content(fixedCommentCreationRequest.getNewContent())
+                    .content(fixedCommentCreationRequest.getContent())
                     .createdAt(LocalDateTime.now())
                     .build();
             fixedQuestionCommentRepository.save(fixedQuestionComment);

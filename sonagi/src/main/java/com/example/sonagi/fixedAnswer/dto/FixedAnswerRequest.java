@@ -1,4 +1,4 @@
-package com.example.sonagi.fixedQuestionComment.dto;
+package com.example.sonagi.fixedAnswer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class FixedCommentCreationRequest {
+public class FixedAnswerRequest {
     private String content;
     private Long questionId;
 }
