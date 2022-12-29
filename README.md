@@ -6,6 +6,8 @@ COKOTHON - 소나기팀
 ## 🖥️ ️서비스 소개
 **소나기, 소중한 나의 가족 기록**
 
+우리 가족의 청춘을 회상하고, 서로를 한 걸음 더 이해할 수 있는 가족 문답 서비스
+
 <br>
 
 ## 🙋‍♀️ Info     
@@ -37,6 +39,8 @@ IDE: IntelliJ
 Framework: Spring Boot(2.x)    
 Database: MySQL    
 Build Tool: Gradle        
+
+<br>
 
 ## Git Branch 전략
 `main`: 배포 단위 branch    
