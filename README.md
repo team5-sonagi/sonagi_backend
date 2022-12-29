@@ -1,11 +1,10 @@
 ## Sonagi Backend 
-COKOTHON - 소나기팀
-
-<br>
+코딧X코스 연합 해커톤 COKOTHON 장려상 수상작
 
 ## 🖥️ ️서비스 소개
-**소나기, 소중한 나의 가족 기록**
+<img src="docs/logo.png" width="50" height="50">
 
+**소나기, 소중한 나의 가족 기록**   
 우리 가족의 청춘을 회상하고, 서로를 한 걸음 더 이해할 수 있는 가족 문답 서비스
 
 <br>
