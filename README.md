@@ -1,5 +1,7 @@
 ## Sonagi Backend 
-코딧X코스 연합 해커톤 COKOTHON 장려상 수상작
+코딧X코스 연합 해커톤 COKOTHON 장려상 수상작 <br><br>
+<image src="https://user-images.githubusercontent.com/84231143/227791625-2ee0df5d-a91f-4dd1-88fc-eb5fd19b687a.jpg" width="40%"/>
+<br>
 
 ## 🖥️ ️서비스 소개
 <img src="docs/logo.png" width="50" height="50">
